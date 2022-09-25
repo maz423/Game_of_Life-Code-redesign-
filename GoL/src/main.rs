@@ -112,3 +112,19 @@ fn Find_neighbours(state: &Vec<Vec<i32>>,index:(i32,i32)) -> Vec<(i32,i32)> {
     
  
 }
+
+//returns number of active neighbours.
+fn Alive_nbrs (state: &Vec<Vec<i32>>,nbrs:Vec<(i32,i32)>) -> i32 {
+    let mut count = 0;
+    for indx in nbrs{
+       let x = indx.0 as usize;
+       let y = indx.1 as usize;
+       if state[x][y] == 1{
+         count = count + 1
+       }
+ 
+    }
+    count
+ 
+ 
+ }
