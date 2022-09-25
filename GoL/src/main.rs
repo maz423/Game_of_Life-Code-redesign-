@@ -3,11 +3,12 @@ use std::io::prelude::*;
 use std::io::BufReader;
 
 fn main() {
-    let  data = read_file();
+    let name:String = "input.txt".to_string();
+    let  data = read_file(name);
     let mut state: Vec<Vec<i32>> = Generate_grid(data,100,100);
   
   
-    for _ticks in 0..10{
+    for _ticks in 0..10{ //simulate ticks
        let mut update_cells:Vec<(usize,usize,i32)> = Vec::new();
        for row in 0..state.len() as i32{
   
@@ -23,6 +24,7 @@ fn main() {
               
               }
        }
+       //update cell values.
        for i in 0..update_cells.len(){
         state[update_cells[i].0][update_cells[i].1] = update_cells[i].2;
      }
@@ -36,10 +38,16 @@ fn main() {
     
   }
 
-//reads an input file and returns a string of the initial state
-fn read_file() -> String {
+/*
+Purpose: Reads an input file and returns a string of the initial state.
+Pre-condition:
+  param: name: Name of a file that contains the initial state of GoL.
+Post-condition: None
+return: a string that contains the initial state of GoL
+*/
+fn read_file(name:String) -> String {
 
-    let mut file = File::open("input.txt")
+    let mut file = File::open(name)
     .expect("File not found");
     let mut data = String::new();
     file.read_to_string(&mut data)
@@ -49,7 +57,16 @@ fn read_file() -> String {
     }
 
 
-//returns a nested vector 2D that containing the initial state.
+
+
+/*
+Purpose: Converts a string representation of GoL into a 2D Vector.
+Pre-condition:
+    param: data: A string representation of GoL.
+Post-condition: None.
+return: A 2D Vector representation of GoL.
+*/
+
 fn Generate_grid(data:String,rows:i32,cols:i32) -> Vec<Vec<i32>>{
     let mut str:Vec<char> = Vec::new();
     
@@ -85,6 +102,16 @@ fn Generate_grid(data:String,rows:i32,cols:i32) -> Vec<Vec<i32>>{
 
 }
 
+
+
+/*
+Purpose: Finds neighbours of a cell within the dimension of the Grid.
+Pre-condition:
+    param: state: a 2d Vector representation of GOL.
+    param: index: The index of the cell whose neighbours are to be found.
+Post-condition:  None
+return: a Vector containing the indicies of the neighbouring cells.
+*/
 
 fn Find_neighbours(state: &Vec<Vec<i32>>,index:(i32,i32)) -> Vec<(i32,i32)> {
     let row_len = state.len() as i32;
@@ -143,7 +170,15 @@ fn Find_neighbours(state: &Vec<Vec<i32>>,index:(i32,i32)) -> Vec<(i32,i32)> {
  
 }
 
-//returns number of active neighbours.
+/*
+Purpose: Returns number of active neighbours.
+Pre-condition:
+    param: state: a 2d Vector representation of GOL.
+    param: A vector of tuples containing index of a cell.
+Post-condition: None.
+return: the count of active neighbours
+*/
+
 fn Alive_nbrs (state: &Vec<Vec<i32>>,nbrs:Vec<(i32,i32)>) -> i32 {
     let mut count = 0;
     for indx in nbrs{
@@ -159,8 +194,18 @@ fn Alive_nbrs (state: &Vec<Vec<i32>>,nbrs:Vec<(i32,i32)>) -> i32 {
  
  }
 
+/*
+Purpose: Returns the index of the cell whose state is to be updated.
+Pre-condition:
+    params: state: a 2d Vector representation of GOL.
+    params: alive: count of alive neghbours.
+    params: update_indx: A tuple containing index as first two field and value as last feild if the cell to be updated.
+Post-condition: None.
+return: A tuple containing index as first two field and value as last feild if the cell to be updated.
+*/
 
- fn Update_rule(state: &mut Vec<Vec<i32>>, alive:i32, index:(i32,i32), update_indx: &mut Vec<(usize,usize,i32)>){
+
+fn Update_rule(state: &mut Vec<Vec<i32>>, alive:i32, index:(i32,i32), update_indx: &mut Vec<(usize,usize,i32)>){
 
      let x = index.0 as usize;
      let y = index.1 as usize;
@@ -190,9 +235,15 @@ fn Alive_nbrs (state: &Vec<Vec<i32>>,nbrs:Vec<(i32,i32)>) -> i32 {
  
  }
 
+/*
+Purpose: writes the final state in a file.
+Pre-condition:
+    params: state: a 2d Vector representation of GOL.
+Post-condition: None.
+return: None.
+*/
 
-
- fn output(state: &Vec<Vec<i32>>){
+fn output(state: &Vec<Vec<i32>>){
 
     let mut state_str = String::new();
    
