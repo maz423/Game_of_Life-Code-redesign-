@@ -3,8 +3,38 @@ use std::io::prelude::*;
 use std::io::BufReader;
 
 fn main() {
-    println!("Hello, world!");
-}
+    let  data = read_file();
+    let mut state: Vec<Vec<i32>> = Generate_grid(data,100,100);
+  
+  
+    for _ticks in 0..10{
+       let mut update_cells:Vec<(usize,usize,i32)> = Vec::new();
+       for row in 0..state.len() as i32{
+  
+          for col in 0..state[0].len() as i32{
+              let indx = (row,col);
+              
+              let mut nbrs = Find_neighbours(&state, indx);
+              
+              let alive_count = Alive_nbrs(&state, nbrs);
+              
+              Update_rule(&mut state, alive_count, indx, &mut update_cells);
+              
+              
+              }
+       }
+       for i in 0..update_cells.len(){
+        state[update_cells[i].0][update_cells[i].1] = update_cells[i].2;
+     }
+  
+    }
+  
+    //write to file.
+    output(&state);
+  
+  
+    
+  }
 
 //reads an input file and returns a string of the initial state
 fn read_file() -> String {
@@ -159,3 +189,37 @@ fn Alive_nbrs (state: &Vec<Vec<i32>>,nbrs:Vec<(i32,i32)>) -> i32 {
     
  
  }
+
+
+
+ fn output(state: &Vec<Vec<i32>>){
+
+    let mut state_str = String::new();
+   
+    for r in 0..state.len(){
+ 
+       for c in 0..state[0].len(){
+ 
+          if &state[r][c].to_string() == "1"{
+             state_str.push_str("*");
+ 
+          }
+          else{
+             state_str.push_str(" ");
+          }
+           
+           
+           if c == state[0].len()-1 {
+             state_str.push_str("\n");
+           }
+ 
+       }
+    }
+ 
+     let mut f = File::create("./output.txt").expect("Unable to create file");
+     f.write_all(state_str.as_bytes()).expect("Unable to write data");
+    
+ 
+ 
+ }
+ 
