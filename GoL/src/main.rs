@@ -128,3 +128,34 @@ fn Alive_nbrs (state: &Vec<Vec<i32>>,nbrs:Vec<(i32,i32)>) -> i32 {
  
  
  }
+
+
+ fn Update_rule(state: &mut Vec<Vec<i32>>, alive:i32, index:(i32,i32), update_indx: &mut Vec<(usize,usize,i32)>){
+
+     let x = index.0 as usize;
+     let y = index.1 as usize;
+     
+    if state[x][y] == 1{
+ 
+         if alive < 2 || alive > 3{
+            update_indx.push((x,y,0));
+            
+         }
+ 
+         }
+ 
+    if state[x][y] == 0{
+ 
+         if alive == 3{
+          update_indx.push((x,y,1));
+          
+ 
+         }
+ 
+ 
+     }
+    
+ 
+    
+ 
+ }
