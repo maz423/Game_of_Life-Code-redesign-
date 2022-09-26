@@ -1,42 +1,128 @@
 use std::fs::File;
 use std::io::prelude::*;
 use std::io::BufReader;
+use std::io;
+use std::io::*;
 
 fn main() {
-    let name:String = "input.txt".to_string();
-    let  data = read_file(name);
-    let mut state: Vec<Vec<i32>> = Generate_grid(data,100,100);
+    
+    let input = Get_input();
+    println!("rows: {}",input.0);
+    println!("cols: {}",input.1);
+    println!("Geometry: {}",input.2);
+
+    
+
+
+
+    // let name:String = "input.txt".to_string();
+    // let  data = read_file(name);
+    // let mut state: Vec<Vec<i32>> = Generate_grid(data,100,100);
   
   
-    for _ticks in 0..10{ //simulate ticks.
-       let mut update_cells:Vec<(usize,usize,i32)> = Vec::new();
-       for row in 0..state.len() as i32{
+    // for _ticks in 0..10{ //simulate ticks.
+    //    let mut update_cells:Vec<(usize,usize,i32)> = Vec::new();
+    //    for row in 0..state.len() as i32{
   
-          for col in 0..state[0].len() as i32{
-              let indx = (row,col);
+    //       for col in 0..state[0].len() as i32{
+    //           let indx = (row,col);
               
-              let mut nbrs = Find_neighbours(&state, indx);
+    //           let mut nbrs = Find_neighbours(&state, indx);
               
-              let alive_count = Alive_nbrs(&state, nbrs);
+    //           let alive_count = Alive_nbrs(&state, nbrs);
               
-              Update_rule(&mut state, alive_count, indx, &mut update_cells);
+    //           Update_rule(&mut state, alive_count, indx, &mut update_cells);
               
               
-              }
-       }
-       //update cell values.
-       for i in 0..update_cells.len(){
-        state[update_cells[i].0][update_cells[i].1] = update_cells[i].2;
-     }
+    //           }
+    //    }
+    //    //update cell values.
+    //    for i in 0..update_cells.len(){
+    //     state[update_cells[i].0][update_cells[i].1] = update_cells[i].2;
+    //  }
   
-    }
+    // }
   
-    //write to file.
-    output(&state);
+    // //write to file.
+    // output(&state);
   
   
     
   }
+
+
+
+
+
+fn Get_input() -> (i32,i32,String) {
+
+    let mut r = 0;
+    let mut c = 0;
+    let mut g = 0;
+    println!("{}","Enter number of rows: ");
+    let mut val1 = String::new();
+    stdin().read_line(&mut val1)
+    	.ok()
+        .expect("Failed to read line");
+
+        let rows = val1.trim();
+        match rows.parse::<i32>() {
+            Ok(i) => r = i,
+            Err(..) => println!("this was not an integer: {}", rows),
+        };
+    
+
+    println!("{}","Enter number of cols: ");
+    let mut val2 = String::new();
+        stdin().read_line(&mut val2)
+            .ok()
+            .expect("Failed to read line");
+
+            let cols = val2.trim();
+            match cols.parse::<i32>() {
+                Ok(i) => c=i,
+                Err(..) => println!("this was not an integer: {}", cols),
+            };
+
+    
+
+    println!("{}", "Please choose a number indicating selected geometry :");
+    println!("{}", "1. Cylinderical Top");
+    println!("{}", "2. Cylinderical Side");
+    println!("{}", "3. Toroidal");
+
+    let mut val3 = String::new();
+    stdin().read_line(&mut val3)
+    	.ok()
+        .expect("Failed to read line");
+    let Geometry = val3.trim();
+        match Geometry.parse::<i32>() {
+            Ok(i) => g=i,
+            Err(..) => println!("this was not an integer: {}", Geometry),
+        };
+
+        
+    
+    
+    let mut Geo = String::new();
+    if g == 1 {
+       
+       Geo.push_str("Cylinderical_top");
+
+    }
+    if g == 2 {
+        
+        Geo.push_str("Cylinderical_side");
+    }
+    if g == 3 {
+        
+        Geo.push_str("Toroidal");
+
+    }
+    
+    (r,c,Geo)
+
+}
 
 /*
 Purpose: Reads an input file and returns a string of the initial state.
