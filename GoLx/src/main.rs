@@ -11,7 +11,13 @@ fn main() {
     println!("cols: {}",input.1);
     println!("Geometry: {}",input.2);
 
-    
+    let name:String = "input.txt".to_string();
+    let  data = read_file(name);
+    let mut state: Vec<Vec<i32>> = Generate_grid(data,100,100);
+    let mut indx = (5,5);
+    let mut nbrs = Find_neighbours(&state, indx,input.2);
+
+    println!("{:?}",nbrs);
 
 
 
@@ -199,7 +205,7 @@ Post-condition:  None
 return: a Vector containing the indicies of the neighbouring cells.
 */
 
-fn Find_neighbours(state: &Vec<Vec<i32>>,index:(i32,i32)) -> Vec<(i32,i32)> {
+fn Find_neighbours(state: &Vec<Vec<i32>>,index:(i32,i32),Geo: String) -> Vec<(i32,i32)> {
    //assert index validity
     let row_len = state.len() as i32;
     let col_len = state[0].len() as i32;
@@ -213,43 +219,94 @@ fn Find_neighbours(state: &Vec<Vec<i32>>,index:(i32,i32)) -> Vec<(i32,i32)> {
        Index_nbr.push(indx);
  
     }
+    else if col + 1 == col_len && Geo == "Cylinderical_side"{ //Cylendrical side.
+
+        let indx = (row, 0);
+        Index_nbr.push(indx);
+
+       
+    }
     //left cell
      if col - 1 >= 0 {
      let indx = (row, col - 1);
      Index_nbr.push(indx);
  
     }
-    //bottom cell
+    else if col == 0 && Geo == "Cylinderical_side" { //Cylendrical side.
+        let indx = (row, col + (col_len - 1));
+        Index_nbr.push(indx);
+
+    }
+
+    //Top cell
      if row - 1 >= 0 {
      let indx = (row - 1, col);
      Index_nbr.push(indx);}
+
+     else if row == 0 && Geo == "Cylinderical_top" {
+        let indx = (row + (row_len - 1), col);
+        Index_nbr.push(indx);
+     }
     
-    //Top cell
+    //bottom cell
      if row + 1 < row_len {
      let indx = (row + 1, col);
      Index_nbr.push(indx);}
+
+     else if row + 1 == row_len && Geo == "Cylinderical_top"{
+        let indx = (0, col);
+        Index_nbr.push(indx);
+
+
+     }
  
  
-    //Top right
+    //bottom right
      if row + 1 < row_len && col + 1 < col_len {
      let indx = (row + 1, col + 1);
      Index_nbr.push(indx);}
+
+     else if row + 1 < row_len && col + 1 == col_len && Geo == "Cylinderical_side"{
+        let indx = (row + 1, 0);
+        Index_nbr.push(indx);
+        
+     }
  
  
-    //Top Left
-     if row + 1 < row_len && col - 1 >= 0 {
+    //bottom Left
+     if row + 1 < row_len && col - 1 >= 0  {
      let indx = (row + 1, col - 1);
-     Index_nbr.push(indx);}
+     Index_nbr.push(indx);} 
+
+     else if row + 1 < row_len && col == 0 && Geo == "Cylinderical_side"{ 
+        let indx = (row + 1, col_len -1);
+        Index_nbr.push(indx);
+        
+     }
+
+     
  
-    //bottom right
+    //Top right
      if row - 1 >= 0 && col + 1 < col_len{
      let indx = (row - 1, col + 1);
      Index_nbr.push(indx);}
+
+     else if row - 1 > 0 && col + 1 == col_len && Geo == "Cylinderical_side"{
+        let indx = (row - 1, 0);
+        Index_nbr.push(indx);
+        
+     }
  
-    //bottom left
+    //Top left
      if row - 1 >= 0 && col - 1 >= 0 {
      let indx = (row - 1, col - 1);
      Index_nbr.push(indx);}
+
+     else if row - 1 > 0 && col == 0 && Geo == "Cylinderical_side" {
+        let indx = (row - 1, col_len - 1);
+        Index_nbr.push(indx);
+        
+     }
  
  
  Index_nbr
