@@ -8,7 +8,7 @@ fn main() {
     let mut state: Vec<Vec<i32>> = Generate_grid(data,100,100);
   
   
-    for _ticks in 0..10{ //simulate ticks
+    for _ticks in 0..10{ //simulate ticks.
        let mut update_cells:Vec<(usize,usize,i32)> = Vec::new();
        for row in 0..state.len() as i32{
   
@@ -114,6 +114,7 @@ return: a Vector containing the indicies of the neighbouring cells.
 */
 
 fn Find_neighbours(state: &Vec<Vec<i32>>,index:(i32,i32)) -> Vec<(i32,i32)> {
+   //assert index validity
     let row_len = state.len() as i32;
     let col_len = state[0].len() as i32;
     let mut Index_nbr:Vec<(i32,i32)> = Vec::new();
@@ -180,6 +181,7 @@ return: the count of active neighbours
 */
 
 fn Alive_nbrs (state: &Vec<Vec<i32>>,nbrs:Vec<(i32,i32)>) -> i32 {
+    
     let mut count = 0;
     for indx in nbrs{
        let x = indx.0 as usize;
@@ -206,7 +208,7 @@ return: A tuple containing index as first two field and value as last feild if t
 
 
 fn Update_rule(state: &mut Vec<Vec<i32>>, alive:i32, index:(i32,i32), update_indx: &mut Vec<(usize,usize,i32)>){
-
+     //assert update index is valid.
      let x = index.0 as usize;
      let y = index.1 as usize;
      
