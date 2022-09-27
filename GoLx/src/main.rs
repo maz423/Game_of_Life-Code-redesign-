@@ -14,7 +14,7 @@ fn main() {
     let name:String = "input.txt".to_string();
     let  data = read_file(name);
     let mut state: Vec<Vec<i32>> = Generate_grid(data,100,100);
-    let mut indx = (0,2);
+    let mut indx = (0,0);
     let mut nbrs = Find_neighbours(&state, indx,input.2);
 
     println!("{:?}",nbrs);
@@ -219,7 +219,7 @@ fn Find_neighbours(state: &Vec<Vec<i32>>,index:(i32,i32),Geo: String) -> Vec<(i3
        Index_nbr.push(indx);
  
     }
-    else if col + 1 == col_len && Geo == "Cylinderical_side"{ //Cylendrical side.
+    else if col + 1 == col_len && (Geo == "Cylinderical_side" || Geo == "Toroidal") { //Cylendrical side.
 
         let indx = (row, 0);
         Index_nbr.push(indx);
@@ -232,7 +232,7 @@ fn Find_neighbours(state: &Vec<Vec<i32>>,index:(i32,i32),Geo: String) -> Vec<(i3
      Index_nbr.push(indx);
  
     }
-    else if col == 0 && Geo == "Cylinderical_side" { //Cylendrical side.
+    else if col == 0 && (Geo == "Cylinderical_side" || Geo == "Toroidal") { //Cylendrical side.
         let indx = (row, col + (col_len - 1));
         Index_nbr.push(indx);
 
@@ -243,7 +243,7 @@ fn Find_neighbours(state: &Vec<Vec<i32>>,index:(i32,i32),Geo: String) -> Vec<(i3
      let indx = (row - 1, col);
      Index_nbr.push(indx);}
 
-     else if row == 0 && Geo == "Cylinderical_top" {
+     else if row == 0 && (Geo == "Cylinderical_top" || Geo == "Toroidal"){
         let indx = (row + (row_len - 1), col);
         Index_nbr.push(indx);
      }
@@ -253,7 +253,7 @@ fn Find_neighbours(state: &Vec<Vec<i32>>,index:(i32,i32),Geo: String) -> Vec<(i3
      let indx = (row + 1, col);
      Index_nbr.push(indx);}
 
-     else if row + 1 == row_len && Geo == "Cylinderical_top"{
+     else if row + 1 == row_len && (Geo == "Cylinderical_top" || Geo == "Toroidal") {
         let indx = (0, col);
         Index_nbr.push(indx);
 
@@ -268,14 +268,14 @@ fn Find_neighbours(state: &Vec<Vec<i32>>,index:(i32,i32),Geo: String) -> Vec<(i3
 
 
      //Cylinderical_side
-     else if row + 1 < row_len && col + 1 == col_len && Geo == "Cylinderical_side"{
+     else if row + 1 < row_len && col + 1 == col_len && (Geo == "Cylinderical_side" || Geo == "Toroidal"){
         let indx = (row + 1, 0);
         Index_nbr.push(indx);
         
      }
 
      //Cylinderical_top
-     else if row == row_len -1 && col < col_len - 2 && Geo == "Cylinderical_top"{
+     else if row == row_len -1 && col < col_len - 2 && (Geo == "Cylinderical_top" || Geo == "Toroidal"){
         let indx = (0, col + 1);
         Index_nbr.push(indx);
         
@@ -290,14 +290,14 @@ fn Find_neighbours(state: &Vec<Vec<i32>>,index:(i32,i32),Geo: String) -> Vec<(i3
 
 
      //Cylinderical_side
-     else if row + 1 < row_len && col == 0 && Geo == "Cylinderical_side"{ 
+     else if row + 1 < row_len && col == 0 && (Geo == "Cylinderical_side" || Geo == "Toroidal"){ 
         let indx = (row + 1, col_len -1);
         Index_nbr.push(indx);
         
      }
 
      //Cylinderical_top
-     else if row == row_len -1 && col != 0 && Geo == "Cylinderical_top"{
+     else if row == row_len -1 && col != 0 && (Geo == "Cylinderical_top" || Geo == "Toroidal"){
         let indx = (0, col - 1);
         Index_nbr.push(indx);
         
@@ -311,13 +311,13 @@ fn Find_neighbours(state: &Vec<Vec<i32>>,index:(i32,i32),Geo: String) -> Vec<(i3
      Index_nbr.push(indx);}
 
      //Cylinderical_side
-     else if row - 1 > 0 && col + 1 == col_len && Geo == "Cylinderical_side"{
+     else if row - 1 > 0 && col + 1 == col_len && (Geo == "Cylinderical_side" || Geo == "Toroidal"){
         let indx = (row - 1, 0);
         Index_nbr.push(indx);
         
      }
      //Cylinderical_top
-     else if row == 0 && col < col_len - 2 && Geo == "Cylinderical_top"{
+     else if row == 0 && col < col_len - 2 && (Geo == "Cylinderical_top" || Geo == "Toroidal"){
         let indx = (row + row_len - 1, col + 1);
         Index_nbr.push(indx);
         
@@ -332,18 +332,41 @@ fn Find_neighbours(state: &Vec<Vec<i32>>,index:(i32,i32),Geo: String) -> Vec<(i3
 
 
      //Cylinderical_side
-     else if row - 1 > 0 && col == 0 && Geo == "Cylinderical_side" {
+     else if row - 1 > 0 && col == 0 && (Geo == "Cylinderical_side" || Geo == "Toroidal") {
         let indx = (row - 1, col_len - 1);
         Index_nbr.push(indx);
         
      }
 
      //Cylinderical_top
-     else if row == 0 && col != 0 && Geo == "Cylinderical_top"{
+     else if row == 0 && col != 0 && (Geo == "Cylinderical_top" || Geo == "Toroidal") {
         let indx = (row + row_len - 1, col - 1);
         Index_nbr.push(indx);
         
      }
+
+
+     //Toroidal
+     if row == 0 && col == 0 && Geo == "Toroidal"{
+        let indx = (row_len - 1, col_len - 1);
+        Index_nbr.push(indx);
+
+     }
+     if row == row_len - 1 && col == 0 && Geo == "Toroidal"{
+        let indx = (0, col_len - 1);
+        Index_nbr.push(indx);
+        
+    }
+    if row == row_len - 1 && col == col_len - 1 && Geo == "Toroidal"{
+        let indx = (0,0);
+        Index_nbr.push(indx);
+        
+    }
+    if row == 0 && col == col_len - 1 && Geo == "Toroidal"{
+        let indx = (row_len - 1, 0);
+        Index_nbr.push(indx);
+        
+    }
  
  
  Index_nbr
