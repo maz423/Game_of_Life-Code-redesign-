@@ -14,16 +14,7 @@ fn main() {
     println!("cols: {}",input.1);
     println!("Geometry: {}",input.2);
 
-    // let name:String = "input.txt".to_string();
-    // let  data = read_file(name);
-    // let mut state: Vec<Vec<i32>> = Generate_grid(data,100,100);
-    // let mut indx = (0,0);
-    // let mut nbrs = Find_neighbours(&state, indx,input.2);
-
-    // println!("{:?}",nbrs);
-
-
-
+    
     let name:String = "input.txt".to_string();
     let  data = lib::GoLx::read_file(name);
     let mut state: Vec<Vec<i32>> = lib::GoLx::Generate_grid(data,100,100);
