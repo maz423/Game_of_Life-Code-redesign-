@@ -1,0 +1,77 @@
+commit 5f8d2e1f224b0dd4361680eb32083d9afbaa7119
+Author: Mohammad Zargar <maz423@usask.ca>
+Date:   Mon Sep 26 19:01:03 2022 -0600
+
+    finished Toroidal config
+
+commit 14cc621c7aca845333344d695011602979732501
+Author: Mohammad Zargar <maz423@usask.ca>
+Date:   Mon Sep 26 18:01:05 2022 -0600
+
+    Added Cylenderical_Top config
+
+commit 538b8db7e985883f5f135e96bfaa3a63ece7f752
+Author: Mohammad Zargar <maz423@usask.ca>
+Date:   Mon Sep 26 16:57:15 2022 -0600
+
+    changed Find neihbours to accomidate Cylendrical side config
+
+commit dcd6beeb8fc6abdbdf2a4ff9a9e6b8910a55b8a0
+Author: Mohammad Zargar <maz423@usask.ca>
+Date:   Mon Sep 26 10:52:09 2022 -0600
+
+    Added input() function to get user input.
+
+commit 8ce70db337c48ee320dc129f5b6d9085dca61dec
+Author: Mohammad Zargar <maz423@usask.ca>
+Date:   Sun Sep 25 20:54:07 2022 -0600
+
+    copied main.rs to GoLx.rs to extend it for part 3.
+
+commit 1685bfb963d24d50c3203130e000382b9567f160
+Author: Mohammad Zargar <maz423@usask.ca>
+Date:   Sun Sep 25 14:29:33 2022 -0600
+
+    Added Documentation.
+
+commit b038967f862d924fe0bfb1a4958230b151e7e5ac
+Author: Mohammad Zargar <maz423@usask.ca>
+Date:   Sun Sep 25 11:31:14 2022 -0600
+
+    Added output and a main function.
+
+commit 1a69e58702538da0d084085a985298141ad32166
+Author: Mohammad Zargar <maz423@usask.ca>
+Date:   Sun Sep 25 11:28:12 2022 -0600
+
+    Added a function that returns indexs to be updated from state.
+
+commit 814b722eb156238dd6f33cb112cfbd416e225db3
+Author: Mohammad Zargar <maz423@usask.ca>
+Date:   Sun Sep 25 11:26:06 2022 -0600
+
+    Added a function that returns num of alive nbrs.
+
+commit 89e61bb802c9941866a6f72785cef81d8adf5fa3
+Author: Mohammad Zargar <maz423@usask.ca>
+Date:   Sun Sep 25 11:23:56 2022 -0600
+
+    Added function to find neighbours
+
+commit 49776a664f080bcfe9f94b18348d5bc6e3dafcca
+Author: Mohammad Zargar <maz423@usask.ca>
+Date:   Sun Sep 25 11:20:53 2022 -0600
+
+    Added functions to read file.
+
+commit b6a48582d7693e4e46bc171531405cb14472043c
+Author: Mohammad Zargar <maz423@usask.ca>
+Date:   Thu Sep 8 17:08:09 2022 -0600
+
+    Created project directories using cargo build.
+
+commit 4f52f4a960e4f428d1e550b35f6375ddc3d4d38d
+Author: Mohammad Zargar (maz423) <mohammad.zargar@usask.ca>
+Date:   Thu Sep 8 17:02:31 2022 -0600
+
+    Initial commit
