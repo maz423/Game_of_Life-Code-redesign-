@@ -1,0 +1,70 @@
+Name: Mohammad Aman Zargar
+NSID: Maz423
+Student ID: 11265940
+
+
+
+Part3:
+
+In this part we extend our GoL implementation and allow the user to specify the Grid size, Geometry:
+
+The two implementation styles that seemed feasable to allow the user to select a grid size and the geometry were as follows:
+
+1. Take user input from command line:
+   
+   When the user runs the program, the user will be prompted to enter the dimensions of the Grid.
+   The user will then be prompted to choose between two geometry options: cylindrical, toroidal.
+   
+   
+2. Specifying the dimensions and geometry in the input.txt file:
+
+   The input.txt file would contain the dimensions in the first line of the txt file.
+   The second line would contain a string "cylindrical or toroidal".
+
+compare and contrast:
+
+   Command line  Input                                                File Input
+   
+   input.txt required                            -       input.txt required
+   
+   We can display useful prompts that can        -       The user has no way of knowing how to exactly format the input.txt file
+   guide the user to enter the dimensions
+   and then the size. 
+   
+   Less error prone as the user gets directions  -       more chances that the user incorrectly formats the file 
+   at every step.                                        and the program crashes as a result.
+   
+   
+   
+   Easier to implement:                          -       Comparitively complex to implement:
+     we only have to take user input once                 we have to change our read_file() function
+     in the main() and change our                         as well as our Find_neighbours() function.
+     Find_neighbours() function.                          we might also have to make changes to our Generate_grid function.
+                 
+Chosen method:
+   There dosen't seem to be a huge difference between the two implementations however due to the fact that taking input
+   from the command line is a more interactive process for the user, is less prone to user errors, and also is slightly
+   less complex to implement. and also due to the fact that there are no significant performance improvements of using
+   the File input approach. i will be choosing to implement the command line input method. 
+   
+User end documentation:
+   The extension requires an input.txt file that contains the initial state of the Grid. The user is also given an option
+   to specify the dimentions but the input.txt should
+   match the dimensions entered by the user. However the user can always choose a smaller dimension than the one in the
+   input.txt file.
+   
+   The given input.txt has 113 rows and 100 cols.
+   a user can also enter 100 rows and 100 cols when prompted by program but not 200 rows and 200 cols unless input.txt is modified.
+   Note! some smaller input may generate empty files, that means all cells are dead.
+   The user is then prompted to choose a geometry amoung 3 options. 
+   Please choose a number indicating selected geometry :
+   1. Cylinderical Top
+   2. Cylinderical Side
+   3. Toroidal
+   
+   when the user enters the integer that represents the chosen geometry the program executes a 1000 ticks and generates an output.txt containing the final state.
+     
+
+
+
+

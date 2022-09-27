@@ -14,8 +14,8 @@ Pre-condition:
 Post-condition: None
 return: a string that contains the initial state of GoL
 */
-pub fn read_file(name:String) -> String {
-
+pub fn read_file(name:String) -> String { //no assertion required as rust will only allow strings
+    
     let mut file = File::open(name)
     .expect("File not found");
     let mut data = String::new();
@@ -36,8 +36,10 @@ Post-condition: None.
 return: A 2D Vector representation of GoL.
 */
 
-pub fn Generate_grid(data:String,rows:i32,cols:i32) -> Vec<Vec<i32>>{
+pub fn Generate_grid(data:String,rows:i32,cols:i32) -> Vec<Vec<i32>>{ //check string is not empty, validity of dims.
     let mut str:Vec<char> = Vec::new();
+
+    assert!(data.len() != 0,"Data must contain an initial state and cannot be empty");
     
     for i in data.chars(){
         
@@ -82,8 +84,10 @@ Post-condition:  None
 return: a Vector containing the indicies of the neighbouring cells.
 */
 
-pub fn Find_neighbours(state: &Vec<Vec<i32>>,index:(i32,i32)) -> Vec<(i32,i32)> {
-   //assert index validity
+pub fn Find_neighbours(state: &Vec<Vec<i32>>,index:(i32,i32)) -> Vec<(i32,i32)> { //valid index, state non empty.
+    assert!(state.len() != 0,"state cannot be empty");  //state cannot be empty.
+    assert!(index.0 < state.len() as i32, "row index out of bound");        //checking if index is valid
+    assert!(index.1 < state[0].len() as i32,"col index out of bound");
     let row_len = state.len() as i32;
     let col_len = state[0].len() as i32;
     let mut Index_nbr:Vec<(i32,i32)> = Vec::new();
@@ -149,8 +153,8 @@ Post-condition: None.
 return: the count of active neighbours
 */
 
-pub fn Alive_nbrs (state: &Vec<Vec<i32>>,nbrs:Vec<(i32,i32)>) -> i32 {
-    
+pub fn Alive_nbrs (state: &Vec<Vec<i32>>,nbrs:Vec<(i32,i32)>) -> i32 { //state non empty
+    assert!(state.len() != 0,"state cannot be empty");  //state cannot be empty.
     let mut count = 0;
     for indx in nbrs{
        let x = indx.0 as usize;
@@ -177,23 +181,26 @@ return: A tuple containing index as first two field and value as last feild if t
 
 
 pub fn Update_rule(state: &mut Vec<Vec<i32>>, alive:i32, index:(i32,i32), update_indx: &mut Vec<(usize,usize,i32)>){
-     //assert update index is valid.
-     let x = index.0 as usize;
-     let y = index.1 as usize;
+     assert!(state.len() != 0,"state cannot be empty");  //state cannot be empty.
+     assert!(index.0 < state.len() as i32, "row index out of bound");        //checking if index is valid
+     assert!(index.1 < state[0].len() as i32,"col index out of bound");
+
+     let row = index.0 as usize;
+     let col = index.1 as usize;
      
-    if state[x][y] == 1{
+    if state[row][col] == 1{
  
          if alive < 2 || alive > 3{
-            update_indx.push((x,y,0));
+            update_indx.push((row,col,0));
             
          }
  
          }
  
-    if state[x][y] == 0{
+    if state[row][col] == 0{
  
          if alive == 3{
-          update_indx.push((x,y,1));
+          update_indx.push((row,col,1));
           
  
          }
@@ -215,6 +222,7 @@ return: None.
 */
 
 pub fn output(state: &Vec<Vec<i32>>){
+    assert!(state.len() != 0,"state cannot be empty");  //state cannot be empty.
 
     let mut state_str = String::new();
    

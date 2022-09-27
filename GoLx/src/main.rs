@@ -17,7 +17,7 @@ fn main() {
     
     let name:String = "input.txt".to_string();
     let  data = lib::GoLx::read_file(name);
-    let mut state: Vec<Vec<i32>> = lib::GoLx::Generate_grid(data,100,100);
+    let mut state: Vec<Vec<i32>> = lib::GoLx::Generate_grid(data,input.0,input.1);
   
   
     for _ticks in 0..100{ //simulate ticks.
@@ -45,6 +45,7 @@ fn main() {
   
     //write to file.
     lib::GoLx::output(&state);
+    println!("{}", "Execution Sucessfull, please check output.txt.");
   
   
     

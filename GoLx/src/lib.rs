@@ -7,12 +7,20 @@ pub mod GoLx{
     use std::io;
     use std::io::*;
 
+   /*
+    Purpose: Takes input from user and return a tuple.
+    Pre-condition:
+      None
+    Post-condition: None
+    return: a tuple that contains the rows cols and the chosen Geometry.
+    */
 
    pub fn Get_input() -> (i32,i32,String) {
 
         let mut r = 0;
         let mut c = 0;
         let mut g = 0;
+        println!("{}","Please make sure entered rows and cols do not exceed dimensions of input.txt");
         println!("{}","Enter number of rows: ");
         let mut val1 = String::new();
         stdin().read_line(&mut val1)
@@ -108,6 +116,8 @@ pub mod GoLx{
     */
     
     pub fn Generate_grid(data:String,rows:i32,cols:i32) -> Vec<Vec<i32>>{
+
+        assert!(data.len() != 0,"Data must contain an initial state and cannot be empty");
         let mut str:Vec<char> = Vec::new();
         
         for i in data.chars(){
@@ -137,7 +147,7 @@ pub mod GoLx{
           state.push(Rvec);
     
     };
-    
+       
        state
     
     }
@@ -154,7 +164,11 @@ pub mod GoLx{
     */
     
     pub fn Find_neighbours(state: &Vec<Vec<i32>>,index:(i32,i32),Geo: &String) -> Vec<(i32,i32)> {
-       //assert index validity
+      
+       assert!(state.len() != 0,"state cannot be empty");  //state cannot be empty.
+       assert!(index.0 < state.len() as i32, "row index out of bound");        //checking if index is valid
+       assert!(index.1 < state[0].len() as i32,"col index out of bound");
+
         let row_len = state.len() as i32;
         let col_len = state[0].len() as i32;
         let mut Index_nbr:Vec<(i32,i32)> = Vec::new();
@@ -332,7 +346,7 @@ pub mod GoLx{
     */
     
     pub fn Alive_nbrs (state: &Vec<Vec<i32>>,nbrs:Vec<(i32,i32)>) -> i32 {
-        
+        assert!(state.len() != 0,"state cannot be empty");  //state cannot be empty.
         let mut count = 0;
         for indx in nbrs{
            let x = indx.0 as usize;
@@ -359,7 +373,9 @@ pub mod GoLx{
     
     
     pub fn Update_rule(state: &mut Vec<Vec<i32>>, alive:i32, index:(i32,i32), update_indx: &mut Vec<(usize,usize,i32)>){
-         //assert update index is valid.
+        assert!(state.len() != 0,"state cannot be empty");  //state cannot be empty.
+        assert!(index.0 < state.len() as i32, "row index out of bound");        //checking if index is valid
+        assert!(index.1 < state[0].len() as i32,"col index out of bound");
          let x = index.0 as usize;
          let y = index.1 as usize;
          
@@ -397,6 +413,8 @@ pub mod GoLx{
     */
     
     pub fn output(state: &Vec<Vec<i32>>){
+
+        assert!(state.len() != 0,"state cannot be empty");  //state cannot be empty.
     
         let mut state_str = String::new();
        

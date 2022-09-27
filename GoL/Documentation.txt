@@ -1,0 +1,64 @@
+Mohammad Aman zargar
+NSID: Maz423
+student id: 11265940
+
+                                                         CMPT 470 Assignment 1
+
+Problems with existing code:
+
+No Documentation: 
+   Given code has no documentation, hence there is no way for the reader to find out what the non trivial peices of code are doing.
+
+Hard coded loop guards:
+   The loops run till a hard coded number of times, insted it would have been better if the loops depended on row and cols of the state which could have been generated from the file.
+
+Bad Variable names:
+   The chosen variable names do not convey any purpose of their existance. single letters like A,B,C are used.
+
+No functions used: 
+   The code is not broken down into smaller functions that make code easy to maintain and understand. eg. a fuction to read file and return
+   initial state,  a function to calculate neighbours, a function update values of cells, a function to write output to file.
+
+commented out code:
+   There is a lot of uncommented code that affects code readabilty. eg print statements used for testing. or code that did not work out. The program runs
+   and hence there is hardly any point in keeping the redundant commented code around.
+
+No modularity, all code written in main:
+   All the code is wriiten in a single main function. code could have been decomposed into function which could have been called in the main function. the function code could have been
+   written in different modules. 
+   
+Bad indentation:
+   Given code has bad indentation which makes the code hard to understand. 
+
+
+1D representation of a 2D Grid:
+   the given state which is a 2d grid is mostly indexed as a 1D Array which adds complexity and cognitive load.
+
+
+
+Strengths of existing code:
+
+input file for initial state:
+  input file reads an initial state which in my opinion is a good method to represent the initial state of GOL.
+  Generating an initial state in the code itself would add unessecary complexity to the program.
+  in my rust code i have a function Read_file(). that reads the contents of input.txt as my implementation also takes an initial
+  state from a txt file.
+
+Output file for final state:
+  The output file gives us back the final state. i personally prefer the use of spaces to represent dead cells. as it would be super hard to see any patterns if dead cells
+  were represented by 0's instead.
+  My rust program has a function Output() that creates an output.txt file containing the resulting state. the output file also uses * for alive cells and a space for dead cells.
+
+
+
+Functional decompostion chosen:
+
+read_file() : Reads input from file as a String.
+Generate_grid() : Returns a 2d vector with initial representation.
+Find_neighbours() : return the indicies of the neighbours.
+Alive_nbrs(): returns the number of alive neighbours.
+Update_rule():
+output(): generates an output.txt file with final state.
+Returns the index of the cell whose state is to be updated.
+
+

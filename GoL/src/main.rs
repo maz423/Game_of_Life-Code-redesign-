@@ -1,5 +1,6 @@
 #![allow(warnings)]
 
+
 use std::fs::File;
 use std::io::prelude::*;
 use std::io::BufReader;
@@ -14,7 +15,7 @@ fn main() {
     let mut state: Vec<Vec<i32>> = lib::GoL::Generate_grid(data,100,100);
   
   
-    for _ticks in 0..10{ //simulate ticks.
+    for _ticks in 0..100{ //simulate ticks.
        let mut update_cells:Vec<(usize,usize,i32)> = Vec::new();
        for row in 0..state.len() as i32{
   
@@ -39,6 +40,7 @@ fn main() {
   
     //write to file.
     lib::GoL::output(&state);
+    println!("{}", "Execution Sucessfull, please check output.txt.");
   
   
     
